@@ -94,6 +94,12 @@ def generate_plan():
 
         result = completion.choices[0].message.content
 
+        # === Очистка Markdown от обёрток ===
+        if result.strip().startswith("```"):
+            result = result.strip().strip("`")
+            result = result.replace("markdown", "", 1).strip()
+
+
         # === 2. Сохраняем результат локально ===
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         local_file = DATA_DIR / f"plan_{timestamp}.md"
