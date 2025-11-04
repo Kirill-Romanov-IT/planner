@@ -76,3 +76,54 @@ clearBtn.addEventListener('click', ()=>{
 
 tasksEl.addEventListener('input', updateTaskCounter);
 updateTaskCounter();
+
+
+const aiBtn = document.getElementById('aiBtn');
+
+aiBtn.addEventListener('click', async ()=>{
+  hideMessage();
+
+  const tasks = parseTasks(tasksEl.value);
+  const start = startEl.value;
+  const end = endEl.value;
+
+  if (!tasks.length){
+    showMessage('warn', 'Добавьте хотя бы одну задачу.');
+    return;
+  }
+  if (!start || !end){
+    showMessage('warn', 'Укажите даты начала и окончания.');
+    return;
+  }
+
+  const data = { tasks, start, end };
+
+  showMessage('', '⏳ Генерация AI-плана... Подождите 10–20 секунд...');
+
+  try {
+    const response = await fetch('/api/generate-plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) throw new Error(`Ошибка ${response.status}`);
+    const result = await response.json();
+
+    if (result.status === 'ok') {
+      const link = document.createElement('a');
+      link.href = `/data/${result.file}`;
+      link.textContent = 'Открыть сгенерированный Markdown-план';
+      link.target = '_blank';
+      showMessage('ok', '✅ План успешно создан. ');
+      msgEl.appendChild(document.createElement('br'));
+      msgEl.appendChild(link);
+    } else {
+      showMessage('danger', 'Ошибка при генерации AI-плана.');
+    }
+
+  } catch (err) {
+    console.error(err);
+    showMessage('danger', 'Ошибка при обращении к серверу AI.');
+  }
+});
