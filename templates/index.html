@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Планировщик задач</title>
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="card">
+      <div>
+        <h1>Планировщик задач</h1>
+        <div class="badge">Вставь задачи (по одной на строке), выбери даты и нажми «Сгенерировать план»</div>
+      </div>
+      <div class="chips">
+        <div class="chip">Клиентский JS</div>
+        <div class="chip">Без библиотек</div>
+        <div class="chip">Экспорт CSV</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <form id="plannerForm" novalidate>
+        <div>
+          <label for="tasks">Задачи <span class="hint">(каждая с новой строки)</span></label>
+          <textarea id="tasks" placeholder="Например:
+— Подготовить бриф
+— Созвон с командой
+— Прототип интерфейса
+— Ревью требований"></textarea>
+          <div class="row" style="align-items:center; margin-top:6px">
+            <span class="hint">Пустые строки будут проигнорированы.</span>
+            <span class="counter" id="taskCounter">0 задач</span>
+          </div>
+        </div>
+
+        <div class="grid grid-2">
+          <div>
+            <label for="start">Дата начала</label>
+            <input id="start" type="date">
+          </div>
+          <div>
+            <label for="end">Дата окончания</label>
+            <input id="end" type="date">
+          </div>
+        </div>
+
+        <div class="row">
+          <button type="submit">Сгенерировать план</button>
+          <button type="button" id="clearBtn" class="secondary">Очистить</button>
+          <span class="hint">Распределение равномерно по датам (round-robin).</span>
+        </div>
+
+        <div id="message" class="alert" style="display:none"></div>
+      </form>
+    </section>
+
+    <section id="resultsCard" class="card results" style="display:none">
+      <div class="tools">
+        <strong>Сформированный план</strong>
+        <span id="stats" class="counter"></span>
+        <button type="button" id="copyBtn" class="secondary" title="Скопировать как текст">Копировать</button>
+        <button type="button" id="csvBtn" class="secondary" title="Скачать CSV">Скачать CSV</button>
+      </div>
+      <div style="overflow:auto; max-height:60vh">
+        <table id="resultsTable" aria-describedby="stats">
+          <thead>
+            <tr>
+              <th style="width:160px">Дата</th>
+              <th>Задачи</th>
+            </tr>
+          </thead>
+          <tbody id="resultsBody"></tbody>
+        </table>
+      </div>
+      <div class="footer">Подсказка: можно повторно сгенерировать план — данные обновятся ниже.</div>
+    </section>
+  </div>
+
+  <script src="../static/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+:root {
+  --bg: #0b0e14;
+  --panel: #111625;
+  --muted: #8da1b9;
+  --text: #e6edf3;
+  --accent: #7aa2f7;
+  --ok:#22c55e;
+  --warn:#f59e0b;
+  --danger:#ef4444;
+  --border:#20283a;
+  --radius:14px;
+  --shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#f6f8fb; --panel:#ffffff; --muted:#6b7280; --text:#0b1220;
+    --accent:#3b82f6; --ok:#16a34a; --warn:#d97706; --danger:#dc2626;
+    --border:#e5e7eb; --shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--text);
+  font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  display:flex; align-items:flex-start; justify-content:center; padding:32px 16px;
+}
+.wrap{width:100%; max-width:980px; display:grid; gap:16px}
+header{
+  padding:16px 20px; background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow);
+  display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+h1{font-size:20px; margin:0}
+.badge{font-size:12px; color:var(--muted)}
+.card{background:var(--panel); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+form{display:grid; gap:16px; padding:20px}
+.grid{display:grid; gap:12px}
+@media (min-width:720px){
+  .grid-2{grid-template-columns:1fr 1fr}
+}
+label{display:block; font-size:14px; color:var(--muted); margin-bottom:6px}
+textarea,input[type="date"]{
+  width:100%; border:1px solid var(--border); background:transparent; color:var(--text);
+  border-radius:10px; padding:12px 14px; outline:none; transition: border-color .2s, box-shadow .2s;
+}
+textarea{min-height:180px; resize:vertical}
+textarea:focus, input[type="date"]:focus{border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in oklab, var(--accent) 25%, transparent)}
+.row{display:flex; gap:12px; flex-wrap:wrap}
+button{
+  appearance:none; border:none; border-radius:12px; padding:12px 16px; cursor:pointer; font-weight:600;
+  background:var(--accent); color:white; transition:transform .04s ease, opacity .2s ease, box-shadow .2s ease;
+  box-shadow:0 6px 18px color-mix(in oklab, var(--accent) 40%, transparent);
+}
+button.secondary{background:transparent; color:var(--text); border:1px solid var(--border); box-shadow:none}
+button:active{transform:translateY(1px)}
+.hint{font-size:13px; color:var(--muted)}
+.alert{border-top:1px dashed var(--border); padding:12px 16px; font-size:14px}
+.alert.ok{color:var(--ok)}
+.alert.warn{color:var(--warn)}
+.alert.danger{color:var(--danger)}
+.results{padding:0 0 8px}
+table{width:100%; border-collapse:collapse; overflow:hidden; border-radius:0 0 var(--radius) var(--radius)}
+thead th{
+  text-align:left; font-size:13px; color:var(--muted); font-weight:600; padding:10px 12px; border-bottom:1px solid var(--border);
+  background:color-mix(in oklab, var(--panel) 92%, black 8%); position:sticky; top:0; z-index:1;
+}
+tbody td{padding:10px 12px; border-bottom:1px solid var(--border); vertical-align:top}
+tbody tr:nth-child(odd){background:color-mix(in oklab, var(--panel) 96%, black 4%)}
+.tools{display:flex; gap:8px; padding:12px 16px}
+.footer{font-size:12px; color:var(--muted); text-align:center; padding:8px}
+.counter{font-size:13px; color:var(--muted); margin-left:auto}
+.chips{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+.chip{font-size:12px; border:1px solid var(--border); color:var(--muted); padding:6px 8px; border-radius:999px}
