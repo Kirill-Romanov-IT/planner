@@ -67,3 +67,5 @@ coverage.xml
 .env.production
 .env.development
 .env.test
+
+.env
